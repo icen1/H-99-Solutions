@@ -1,6 +1,6 @@
 module Main where
 
-import H-99-Problem1
+import Lib
 
 main :: IO ()
 main = someFunc

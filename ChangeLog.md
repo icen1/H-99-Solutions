@@ -1,3 +1,3 @@
-# Changelog for myproj
+# Changelog for H99Solutions
 
 ## Unreleased changes

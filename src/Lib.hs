@@ -1,4 +1,4 @@
-module H-99
+module Lib
     ( someFunc
     ) where
 
