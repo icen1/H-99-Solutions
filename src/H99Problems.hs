@@ -34,7 +34,7 @@ module H99Problems where
     -- Problem 6. Find out whether a list is a palindrome.
     -- My solution
     isPalindrome:: Eq a => [a] -> Bool
-    isPalindrome xs = xs == myReverse xs 
+    isPalindrome xs = xs == myReverse xs
     -- Solution from the book
     isPalindromePrime:: Eq a => [a] -> Bool
     isPalindromePrime xs = xs == myReversePrime xs
@@ -44,5 +44,26 @@ module H99Problems where
     flatten:: NestedList a -> [a]
     flatten (Elem a) = [a]
     flatten (List xs) = foldr (\x acc -> flatten x ++ acc) [] xs
+
+    -- Problem 8. Eliminate consecutive duplicates of list elements.
+    compress:: Eq a => [a] -> [a]
+    compress [] = []
+    compress [x] = [x]
+    compress (x:xs) = if x == head xs then compress xs else x : compress xs
+
+    -- Problem 9. Pack consecutive duplicates of list elements into sublists.
+    -- My solution
+    pack :: Eq a => [a] ->[[a]]
+    pack [] = [[]]
+    pack [x] = [[x]]
+    pack (x:xs) = if x == head xs then [x,head xs] : pack (drop 1 xs) else [x] : pack xs
+    -- Solution from the book
+    packPrime:: Eq a => [a] ->[[a]]
+    packPrime [] = []
+    packPrime (x:xs) = (x:takeWhile (==x) xs) : packPrime (dropWhile (==x) xs)
+
+
+
+
 
     
