@@ -111,7 +111,24 @@ module H99Problems where
     tripleToPair :: (a,b,c) -> (a,b)
     tripleToPair (x,y,z) = (x,y)
 
+    -- Problem 18. Extract a slice from a list.
+    slice :: [a] -> Int -> Int -> [a]
+    slice [] _ _ = []
+    slice list lowerBound upperBound = take lowerUpperSub $ drop (lowerBound-1) list
+        where
+            lowerUpperSub = upperBound-lowerBound+1
 
+    -- Problem 19. Rotate a list N places to the left.
+    rotate :: [a] -> Int -> [a]
+    rotate list num = if num<0 then sliceSubRot ++ sliceSubMain  else sliceAddMain ++ sliceAddRot
+        where sliceAddRot = slice list 0 (num-1)
+              sliceAddMain = slice list (num+1) (length list)
+              sliceSubRot = slice list (length list+num+1) (length list)
+              sliceSubMain = slice list 0 (length list+num-1)
 
-
-    
+    -- Problem 20. Remove the K'th element from a list.
+    removeAt :: Int -> [a] -> (a,[a])
+    removeAt num list = (k, beforeK ++ afterK)
+        where beforeK = slice list 0 (num-2)
+              afterK = slice list (num+1) (length list)
+              k = head $ slice list num num
