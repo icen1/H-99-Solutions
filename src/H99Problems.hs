@@ -104,6 +104,12 @@ module H99Problems where
     dropEvery :: [a] -> Int -> [a]
     dropEvery lists num = fst $ foldr (\x (lists,i) -> (if i `mod` num == 0 then lists else x:lists, i-1)) ([], length lists) lists
 
+    -- Problem 17. Split a list into two parts; the length of the first part is given.
+    splitPrime :: [a] -> Int -> ([a],[a])
+    splitPrime list num = tripleToPair $ foldr (\x (firstlist,secondList,i) -> (if i <= num then x:firstlist else firstlist, if i > num then x:secondList else secondList, i-1)) ([],[], length list) list
+
+    tripleToPair :: (a,b,c) -> (a,b)
+    tripleToPair (x,y,z) = (x,y)
 
 
 
