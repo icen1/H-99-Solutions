@@ -1,4 +1,7 @@
 module H99Problems where
+
+    import System.Random (randomRs, newStdGen)
+
     -- Problem 1. Find the last element of a list.
     myLast:: [a] -> a
     myLast [x] = x
@@ -132,3 +135,11 @@ module H99Problems where
         where beforeK = slice list 0 (num-2)
               afterK = slice list (num+1) (length list)
               k = head $ slice list num num
+
+    -- Problem 21. Insert an element at a given position into a list.
+    insertAt :: a -> [a] -> Int -> [a]
+    insertAt element xs num = fst $ foldr(\x (acc,i) -> (if i /= num then x:acc else element:x:acc,i-1)) ([],length xs) xs
+
+    -- Problem 22. Create a list containing all integers within a given range.
+    range :: Int -> Int -> [Int]
+    range x y = [x..y]

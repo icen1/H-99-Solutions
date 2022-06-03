@@ -33,6 +33,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , random
   default-language: Haskell2010
 
 executable H99Solutions-exe
@@ -45,6 +46,7 @@ executable H99Solutions-exe
   build-depends:
       H99Solutions
     , base >=4.7 && <5
+    , random
   default-language: Haskell2010
 
 test-suite H99Solutions-test
@@ -58,4 +60,5 @@ test-suite H99Solutions-test
   build-depends:
       H99Solutions
     , base >=4.7 && <5
+    , random
   default-language: Haskell2010
