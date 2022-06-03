@@ -1,6 +1,6 @@
 module H99Problems where
 
-    import System.Random (randomRs, newStdGen)
+    import System.Random
 
     -- Problem 1. Find the last element of a list.
     myLast:: [a] -> a
@@ -143,3 +143,13 @@ module H99Problems where
     -- Problem 22. Create a list containing all integers within a given range.
     range :: Int -> Int -> [Int]
     range x y = [x..y]
+
+    -- Problem 23. Generate a random permutation of the elements of a list.
+    randomPermutation :: [a] -> Int -> [a]
+    randomPermutation lists num = takeRandNumbs randomNumbers lists
+        where
+            randomNumbers        = take num $ randomRs (0,length lists-1) (mkStdGen num) :: [Int]
+            takeRandNumbs [] []  = []
+            takeRandNumbs [] _   = []
+            takeRandNumbs _ []   = []
+            takeRandNumbs (x:xs) ys = (ys!!x):takeRandNumbs xs ys  
