@@ -2,7 +2,9 @@ module H99Problems where
 
     import System.Random
     import Data.Maybe
-
+    import Data.Char (toUpper, ord)
+    import Data.List
+    
     -- Problem 1. Find the last element of a list.
     myLast:: [a] -> a
     myLast [x] = x
@@ -66,7 +68,7 @@ module H99Problems where
     -- Problem 10. Run-length encoding of a list.
     -- My solution
     encodeHelper :: Eq a => [[a]] -> [(Int,a)]
-    encodeHelper xs = foldr (\ x -> (++) [(myLength x, head x)]) [] xs
+    encodeHelper = foldr (\ x -> (++) [(myLength x, head x)]) []
 
     encode :: Eq a => [a] -> [(Int,a)]
     encode [] = []
@@ -157,9 +159,25 @@ module H99Problems where
     randomPermutation' :: [a] -> [a]
     randomPermutation' lists = takeRandNumbs randomNumbers lists
         where
-            randomNumbers        = randomRs (0,length lists-1) (mkStdGen (length lists)) :: [Int]
+            randomNumbers        = take (head $ randomRs (1,length lists-1) (mkStdGen (length lists))::Int) $ randomRs (0,length lists-1) (mkStdGen (length lists)) :: [Int]
             takeRandNumbs [] _   = []
             takeRandNumbs _ []   = []
             takeRandNumbs (x:xs) ys = (ys!!x):takeRandNumbs xs ys
-
     
+    -- GCD
+    gcd' :: Int -> Int -> Int
+    gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
+
+    -- Returns a list of factors of a number
+    factors :: Int -> [Int]
+    factors num = [x | x <- [1..num], num `mod` x == 0]
+
+
+
+
+
+
+
+
+
+

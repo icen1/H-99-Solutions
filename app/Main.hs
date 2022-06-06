@@ -2,9 +2,13 @@ module Main where
 
 import Lib
 import System.Random
+import ExamQuestions
 
 main :: IO ()
-main = do
+main = putStr $ unlines (fizzBuzz)
+
+guessingGame :: IO()
+guessingGame = do
     putStrLn "Let's play a game!"
     putStrLn "I will pick a number between 1 and 100. You have to guess it."
     randNum <- randomRIO (1,100)
