@@ -1,6 +1,7 @@
 module H99Problems where
 
     import System.Random
+    import Data.Maybe
 
     -- Problem 1. Find the last element of a list.
     myLast:: [a] -> a
@@ -65,16 +66,11 @@ module H99Problems where
     -- Problem 10. Run-length encoding of a list.
     -- My solution
     encodeHelper :: Eq a => [[a]] -> [(Int,a)]
-    encodeHelper [] = []
-    encodeHelper (x:xs) = [(myLength x, head x)] ++ encodeHelper xs
+    encodeHelper xs = foldr (\ x -> (++) [(myLength x, head x)]) [] xs
 
     encode :: Eq a => [a] -> [(Int,a)]
     encode [] = []
     encode xs = encodeHelper $ packPrime xs
-
-    -- Solution from the book
-    encodePrime :: Eq a => [a] -> [(Int,a)]
-    encodePrime = map (\x -> (length x, head x)) . pack
 
     -- Problem 11. Modified run-length encoding.
     data MultipleSingleton a = Single a | Multiple Int a
@@ -87,7 +83,7 @@ module H99Problems where
     -- Problem 12. Decode a run-length encoded list.
     decodeModified :: [MultipleSingleton a] -> [a]
     decodeModified [] = []
-    decodeModified (Single x:xs) = [x] ++ decodeModified xs
+    decodeModified (Single x:xs) = x : decodeModified xs
     decodeModified (Multiple num x:xs) = replicate num x ++ decodeModified xs
 
     -- Problem 13. Run-length encoding of a list (direct solution).
@@ -149,7 +145,21 @@ module H99Problems where
     randomPermutation lists num = takeRandNumbs randomNumbers lists
         where
             randomNumbers        = take num $ randomRs (0,length lists-1) (mkStdGen num) :: [Int]
-            takeRandNumbs [] []  = []
             takeRandNumbs [] _   = []
             takeRandNumbs _ []   = []
-            takeRandNumbs (x:xs) ys = (ys!!x):takeRandNumbs xs ys  
+            takeRandNumbs (x:xs) ys = (ys!!x):takeRandNumbs xs ys
+
+    -- Problem 24. Lotto: Draw N different random numbers from the set 1..M.
+    lotto :: Int -> Int -> [Int]
+    lotto num range = take num $ randomPermutation [1..range] num
+
+    -- Problem 25. Generate a random permutation of the elements of a list.
+    randomPermutation' :: [a] -> [a]
+    randomPermutation' lists = takeRandNumbs randomNumbers lists
+        where
+            randomNumbers        = randomRs (0,length lists-1) (mkStdGen (length lists)) :: [Int]
+            takeRandNumbs [] _   = []
+            takeRandNumbs _ []   = []
+            takeRandNumbs (x:xs) ys = (ys!!x):takeRandNumbs xs ys
+
+    
